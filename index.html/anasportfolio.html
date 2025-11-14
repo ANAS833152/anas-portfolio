@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ANAS BAGWAN — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000;
+    --card-bg: rgba(18,18,18,0.78);
+    --accent:#00e0ff;
+    --accent2:#7b2eff;
+    --glass: rgba(255,255,255,0.03);
+    --neon-shadow: 0 12px 40px rgba(0,224,255,0.12);
+    --max-w: 1100px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+  html,body{height:100%;background:var(--bg);color:#fff;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+
+  /* wrapper */
+  .wrap{max-width:var(--max-w);margin:28px auto;padding:18px;position:relative;z-index:2}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 6px}
+  .logo{font-weight:900;color:var(--accent);letter-spacing:0.6px}
+  nav ul{display:flex;gap:14px;list-style:none}
+  nav a{padding:8px 12px;border-radius:8px;text-decoration:none;color:rgba(255,255,255,0.88);font-weight:600}
+  nav a:hover{background:rgba(255,255,255,0.02);color:var(--accent)}
+
+  /* background shapes */
+  .bg-shapes{position:fixed;inset:0;z-index:0;pointer-events:none}
+  .shape{position:absolute;border-radius:50%;filter:blur(90px);opacity:0.10;mix-blend-mode:screen}
+  .s1{width:520px;height:520px;background:linear-gradient(45deg,var(--accent),var(--accent2));left:-8%;top:-6%;animation:float 24s linear infinite}
+  .s2{width:380px;height:380px;background:#ff0066;right:-6%;top:8%;animation:float 28s linear infinite}
+  .s3{width:240px;height:240px;background:#00ffb3;left:12%;bottom:-6%;animation:float 22s linear infinite}
+  @keyframes float{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-40px) rotate(30deg)}100%{transform:translateY(0) rotate(0)}}
+
+  /* layout */
+  .hero{display:grid;grid-template-columns:380px 1fr;gap:30px;align-items:start;margin-top:18px;padding-bottom:18px}
+  .card{
+    width:100%;background:var(--card-bg);border-radius:20px;padding:22px;
+    box-shadow: 0 30px 80px rgba(2,8,23,0.75);
+    border:1px solid rgba(255,255,255,0.04);
+    transform-style:preserve-3d;transition:transform 220ms ease, box-shadow 220ms;
+    position:relative;overflow:visible;
+  }
+  .card:hover{box-shadow: 0 40px 110px rgba(2,8,23,0.85), 0 0 90px rgba(0,224,255,0.07)}
+  .card::after{
+    content:"";position:absolute;inset:-2px;border-radius:22px;
+    background: linear-gradient(90deg, transparent, rgba(0,224,255,0.14), transparent);
+    filter: blur(12px);z-index:-1;opacity:0.95;transition:filter 200ms;
+  }
+
+  .avatar{width:160px;height:160px;border-radius:50%;margin:6px auto;overflow:hidden;border:4px solid #fff;box-shadow:0 12px 40px rgba(2,8,23,0.7)}
+  .avatar img{width:100%;height:100%;object-fit:cover;display:block;transform-origin:center center;transition:transform 400ms ease}
+
+  .name{ text-align:center;margin-top:12px;color:var(--accent);font-weight:900;font-size:22px;white-space:nowrap;overflow:hidden;border-right:3px solid var(--accent);width:0;animation:typing 2.2s steps(18) 0.6s forwards, blink 0.7s step-end infinite;transform:translateZ(22px)}
+  @keyframes typing{from{width:0}to{width:14ch}}@keyframes blink{50%{border-color:transparent}}
+  .role{text-align:center;color:rgba(255,255,255,0.92);font-weight:700;margin-top:8px;transform:translateZ(18px)}
+
+  .cta{display:flex;gap:10px;justify-content:center;margin-top:12px;transform:translateZ(18px)}
+  .btn{padding:10px 14px;border-radius:999px;text-decoration:none;font-weight:800;background:linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));color:#fff;border:1px solid rgba(255,255,255,0.04);box-shadow:var(--neon-shadow)}
+  .btn.neon{background:linear-gradient(90deg,rgba(0,224,255,0.12),rgba(123,46,255,0.06));border:1px solid rgba(0,224,255,0.22)}
+  .btn:hover{transform:translateY(-6px)}
+
+  .future{margin-top:14px;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
+  .future h4{color:var(--accent);font-size:13px;margin-bottom:6px}
+  .future p{font-size:14px;line-height:1.45;color:rgba(255,255,255,0.95)}
+
+  /* content */
+  .content{padding:8px}
+  .section{background:transparent;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+  .section h3{color:var(--accent);margin-bottom:10px;letter-spacing:0.4px}
+  .about p{color:rgba(255,255,255,0.92);line-height:1.6}
+
+  /* Skills GRID (side-by-side) */
+  .skills-grid{display:grid;grid-template-columns:repeat(2, minmax(140px,1fr));gap:14px;margin-top:6px}
+  .skill-card{
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);
+    text-align:center;font-weight:800;color:var(--accent);box-shadow:0 8px 28px rgba(0,0,0,0.6);
+    transition:transform 220ms, box-shadow 220ms;
+  }
+  .skill-card:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 30px 80px rgba(0,0,0,0.7), 0 0 60px rgba(0,224,255,0.06)}
+
+  /* Projects */
+  .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:12px}
+  .proj-card{
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);min-height:120px;
+    display:flex;flex-direction:column;justify-content:space-between;transition:transform 300ms, box-shadow 300ms;
+    box-shadow: 0 12px 30px rgba(2,8,23,0.6);
+  }
+  .proj-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 30px 80px rgba(0,0,0,0.7), 0 0 60px rgba(0,224,255,0.08)}
+  .proj-title{font-weight:800;color:var(--accent);margin-bottom:8px}
+  .proj-desc{font-size:14px;color:rgba(255,255,255,0.9);line-height:1.45}
+  .proj-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+  .view-btn{padding:8px 12px;border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.04);font-weight:700;color:var(--accent);cursor:pointer}
+  .view-btn:hover{background:var(--accent);color:#071018;box-shadow:0 8px 30px rgba(0,224,255,0.12)}
+
+  /* Contact */
+  .contact-form{display:flex;flex-direction:column;gap:10px;max-width:520px}
+  .input,textarea{padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);color:#fff;outline:none;resize:none}
+  .send{align-self:flex-start;padding:10px 16px;border-radius:10px;border:none;background:var(--accent);color:#071018;font-weight:900;cursor:pointer}
+  .send:hover{box-shadow:0 12px 40px rgba(0,224,255,0.12)}
+
+  /* footer */
+  footer{margin-top:30px;padding:18px;text-align:center;color:rgba(255,255,255,0.6);font-size:14px;border-top:1px solid rgba(255,255,255,0.03)}
+  .social-footer{margin-top:8px;display:flex;gap:10px;justify-content:center}
+  .social-footer a{padding:8px 12px;border-radius:8px;background:rgba(255,255,255,0.02);text-decoration:none;color:var(--accent);font-weight:700}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity 700ms ease, transform 700ms ease}
+  .reveal.show{opacity:1;transform:translateY(0)}
+
+  /* responsive */
+  @media(max-width:1024px){ .projects-grid{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:760px){
+    .hero{grid-template-columns:1fr;gap:18px}
+    .projects-grid{grid-template-columns:1fr}
+    .card{margin:auto}
+    header{flex-direction:column;gap:8px}
+    nav ul{flex-wrap:wrap;justify-content:center}
+    .skills-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:420px){
+    .avatar{width:120px;height:120px}
+    .name{font-size:18px}
+  }
+</style>
+</head>
+<body>
+
+  <!-- background shapes -->
+  <div class="bg-shapes" aria-hidden="true">
+    <div class="shape s1"></div>
+    <div class="shape s2"></div>
+    <div class="shape s3"></div>
+  </div>
+
+  <div class="wrap">
+    <header>
+      <div class="logo">ANAS<span style="color:var(--accent2)">.</span></div>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="hero" id="home">
+      <!-- LEFT card -->
+      <div class="card reveal" id="card">
+        <div class="avatar" id="avatar">
+          <img src="https://i.ibb.co/TMJP0CKn/Whats-App-Image-2025-11-12-at-13-36-34-62a2cba6.jpg" alt="Anas Bagwan">
+        </div>
+
+        <div class="name">ANAS BAGWAN</div>
+        <div class="role">BCA 1st Year Student • Malkapur</div>
+
+        <div class="cta">
+          <a class="btn neon" href="https://www.instagram.com/anaass_max" target="_blank" rel="noopener">📸 Instagram</a>
+          <a class="btn" href="resume.pdf" download="ANAS-BAGWAN-Resume.pdf">💼 Resume</a>
+        </div>
+
+        <div class="future" style="margin-top:14px">
+          <h4>Future Goal</h4>
+          <p>My goal is to become a skilled Data Scientist, using data to solve real-world problems and uncover smart insights.<br>I want to blend creativity and technology to make data more meaningful and useful for everyone.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT content -->
+      <div class="content">
+        <section id="about" class="section reveal">
+          <h3>About</h3>
+          <p>Hi — I’m Anas, a BCA 1st year student from Malkapur. I enjoy building clean, modern UI and learning data-driven technologies. I like solving problems by practicing and building real projects. Always learning, always building.</p>
+        </section>
+
+        <section id="skills" class="section reveal">
+          <h3>Skills</h3>
+          <div class="skills-grid" aria-hidden="false">
+            <div class="skill-card">C++</div>
+            <div class="skill-card">Python</div>
+          </div>
+        </section>
+
+        <section id="projects" class="section reveal">
+          <h3>Projects</h3>
+          <div class="projects-grid">
+            <div class="proj-card">
+              <div>
+                <div class="proj-title">Personal Diary App</div>
+                <div class="proj-desc">A modern diary app with local storage and clean UI (JS + HTML/CSS).</div>
+              </div>
+              <div class="proj-actions">
+                <button class="view-btn" onclick="alert('Demo not linked — placeholder')">View</button>
+              </div>
+            </div>
+
+            <div class="proj-card">
+              <div>
+                <div class="proj-title">Car Racing Game</div>
+                <div class="proj-desc">A Python (Pygame) based car racing game with score saving & sound effects.</div>
+              </div>
+              <div class="proj-actions">
+                <button class="view-btn" onclick="alert('Demo not linked — placeholder')">View</button>
+              </div>
+            </div>
+
+            <div class="proj-card">
+              <div>
+                <div class="proj-title">Health Habit Tracker</div>
+                <div class="proj-desc">Frontend tracker with charts (progress, water, sleep) and daily goals.</div>
+              </div>
+              <div class="proj-actions">
+                <button class="view-btn" onclick="alert('Demo not linked — placeholder')">View</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="goals" class="section reveal">
+          <h3>Future Goals</h3>
+          <div class="timeline">
+            <div class="step">Become a skilled Data Scientist with strong ML and AI knowledge.</div>
+            <div class="step">Build smart projects that solve real-life problems.</div>
+            <div class="step">Work with advanced AI tools & contribute to modern tech products.</div>
+          </div>
+        </section>
+
+        <section id="contact" class="section reveal">
+          <h3>Contact</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;max-width:520px">
+            <div style="color:rgba(255,255,255,0.9)">📍 Malkapur</div>
+            <div style="color:rgba(255,255,255,0.9)">📧 <a href="mailto:anasb7602@gmail.com" style="text-decoration:underline;color:var(--accent)">anasb7602@gmail.com</a></div>
+            <div style="margin-top:6px">
+              <form class="contact-form" onsubmit="event.preventDefault(); alert('Thanks — message sent (demo).')">
+                <input class="input" name="name" placeholder="Your name" required>
+                <input class="input" name="email" placeholder="Your email" required>
+                <textarea class="input" name="message" rows="4" placeholder="Your message" required></textarea>
+                <button class="send" type="submit">Send Message</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer>
+      <div>© 2025 ANAS BAGWAN — All Rights Reserved</div>
+      <div class="social-footer" style="margin-top:8px">
+        <a href="https://www.instagram.com/anaass_max" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:anasb7602@gmail.com">Email</a>
+      </div>
+    </footer>
+  </div>
+
+<script>
+  // Smooth nav scroll
+  document.querySelectorAll('nav a').forEach(a=>{
+    a.addEventListener('click', e=>{
+      e.preventDefault();
+      const id = a.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  function revealOnScroll(){
+    revealEls.forEach(el=>{
+      const rect = el.getBoundingClientRect();
+      if(rect.top < window.innerHeight - 80){
+        el.classList.add('show');
+      }
+    });
+  }
+  window.addEventListener('load', revealOnScroll);
+  window.addEventListener('scroll', revealOnScroll);
+
+  // animate skill-card hover glow (no percentages)
+  document.querySelectorAll('.skill-card').forEach((c,i)=>{
+    c.style.opacity = 0;
+    setTimeout(()=> c.style.opacity = 1, 200 + i*120);
+  });
+
+  // 3D tilt + avatar parallax
+  (function(){
+    const card = document.getElementById('card');
+    const avatar = document.getElementById('avatar');
+    if(!card) return;
+    function rect(){return card.getBoundingClientRect();}
+    function handle(e){
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const r = rect();
+      const cx = r.left + r.width/2;
+      const cy = r.top + r.height/2;
+      const px = (clientX - cx) / (r.width/2);
+      const py = (clientY - cy) / (r.height/2);
+      const rotY = px * 12;
+      const rotX = -py * 10;
+      card.style.transform = `rotateY(${rotY}deg) rotateX(${rotX}deg) translateZ(6px)`;
+      avatar.style.transform = `translateZ(24px) translateX(${px*8}px) translateY(${py*6}px)`;
+      card.style.boxShadow = `0 40px 100px rgba(2,8,23,0.85), 0 0 90px rgba(0,224,255,0.09)`;
+    }
+    function reset(){
+      card.style.transform = '';
+      avatar.style.transform = '';
+      card.style.boxShadow = '';
+    }
+    card.addEventListener('mousemove', handle);
+    card.addEventListener('mouseleave', reset);
+    card.addEventListener('touchmove', handle, {passive:true});
+    card.addEventListener('touchend', reset);
+  })();
+
+  // subtle avatar float
+  (function(){
+    const img = document.querySelector('.avatar img');
+    if(!img) return;
+    let dir = 1;
+    setInterval(()=> {
+      img.style.transform = `scale(1.01) translateY(${dir * 4}px)`;
+      dir *= -1;
+    }, 2800);
+  })();
+</script>
+</body>
+</html>
